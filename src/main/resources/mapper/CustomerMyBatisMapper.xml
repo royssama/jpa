@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.repository.mybatis.CustomerMyBatisMapper">
+
+    <resultMap id="CustomerResultMap" type="com.example.backend.domain.Customer">
+        <id property="customerId" column="CustomerId"/>
+        <result property="firstName" column="FirstName"/>
+        <result property="lastName" column="LastName"/>
+        <result property="company" column="Company"/>
+        <result property="address" column="Address"/>
+        <result property="city" column="City"/>
+        <result property="state" column="State"/>
+        <result property="country" column="Country"/>
+        <result property="postalCode" column="PostalCode"/>
+        <result property="phone" column="Phone"/>
+        <result property="fax" column="Fax"/>
+        <result property="email" column="Email"/>
+        <result property="supportRepId" column="SupportRepId"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="CustomerResultMap">
+        SELECT CustomerId, FirstName, LastName, Company, Address, City, State, Country,
+               PostalCode, Phone, Fax, Email, SupportRepId
+        FROM Customer
+        ORDER BY CustomerId
+    </select>
+
+    <select id="findById" resultMap="CustomerResultMap">
+        SELECT CustomerId, FirstName, LastName, Company, Address, City, State, Country,
+               PostalCode, Phone, Fax, Email, SupportRepId
+        FROM Customer
+        WHERE CustomerId = #{id}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="customerId" keyColumn="CustomerId">
+        INSERT INTO Customer (
+            FirstName, LastName, Company, Address, City, State, Country,
+            PostalCode, Phone, Fax, Email, SupportRepId
+        ) VALUES (
+            #{firstName}, #{lastName}, #{company}, #{address}, #{city}, #{state}, #{country},
+            #{postalCode}, #{phone}, #{fax}, #{email}, #{supportRepId}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE Customer SET
+            FirstName = #{firstName},
+            LastName = #{lastName},
+            Company = #{company},
+            Address = #{address},
+            City = #{city},
+            State = #{state},
+            Country = #{country},
+            PostalCode = #{postalCode},
+            Phone = #{phone},
+            Fax = #{fax},
+            Email = #{email},
+            SupportRepId = #{supportRepId}
+        WHERE CustomerId = #{customerId}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM Customer WHERE CustomerId = #{id}
+    </delete>
+</mapper>
