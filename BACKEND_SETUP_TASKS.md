@@ -1,4 +1,4 @@
-# 백엔드 환경 구축 할 일 목록 (Spring Boot 3 + JPA + QueryDSL + MyBatis + SQLite + Swagger + 보안)
+버전2
 
 DBeaver·SQLite 관련 확인은 아래 **답변 요약**을 기준으로 반영했습니다.
 
