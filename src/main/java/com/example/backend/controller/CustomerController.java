@@ -9,6 +9,8 @@ import com.example.backend.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,9 +36,9 @@ public class CustomerController {
 
     @Operation(summary = "전체 조회")
     @GetMapping
-    public CommonApiResponse<List<CustomerResponse>> list() {
+    public CommonApiResponse<Page<CustomerResponse>> list(Pageable pageable) {
         return CommonApiResponse.createSuccess(
-                customerService.findAll().stream().map(CustomerResponse::from).toList()
+                customerService.findAll(pageable).map(CustomerResponse::from)
         );
     }
 

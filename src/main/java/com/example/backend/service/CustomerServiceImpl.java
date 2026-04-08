@@ -7,6 +7,8 @@ import com.example.backend.repository.jpa.CustomerQueryRepository;
 import com.example.backend.repository.mybatis.CustomerMyBatisMapper;
 import com.example.backend.exception.ResourceNotFoundException;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,17 +36,17 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerMyBatisMapper = customerMyBatisMapper;
     }
 
-    /** 전체 조회 — MyBatis로 바꾸려면 {@code customerMyBatisMapper.findAll()} 사용. */
+    /** 전체 조회 페이징 — JPA Pageable 사용. */
     @Override
-    public List<Customer> findAll() {
-        return  customerMyBatisMapper.findAll();
-       // return customerJpaRepository.findAll();
+    public Page<Customer> findAll(Pageable pageable) {
+        return customerJpaRepository.findAll(pageable);
     }
 
     /** 단건 조회 — MyBatis로 바꾸려면 {@code customerMyBatisMapper.findById(id)} 사용. */
     @Override
     public Customer findById(Long id) {
-        return customerJpaRepository.findById(id).orElse(null);
+       // return customerJpaRepository.findById(id).orElse(null);
+        return customerMyBatisMapper.findById(id);
     }
 
     /** QueryDSL 검색 ({@link CustomerQueryRepository}). */
