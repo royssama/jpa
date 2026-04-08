@@ -5,6 +5,7 @@ import com.example.backend.dto.CustomerRequest;
 import com.example.backend.repository.jpa.CustomerJpaRepository;
 import com.example.backend.repository.jpa.CustomerQueryRepository;
 import com.example.backend.repository.mybatis.CustomerMyBatisMapper;
+import com.example.backend.exception.ResourceNotFoundException;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public Customer update(Long id, CustomerRequest request) {
         Customer customer = customerJpaRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found: " + id));
         applyRequest(customer, request);
         return customer;
     }
