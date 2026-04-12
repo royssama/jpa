@@ -1,4 +1,8 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 55MB
   messages:
     basename: messages/messages
     encoding: UTF-8
@@ -34,6 +38,10 @@ decorator:
          enable-logging: false  #enable-logging: true
         # log-level: info
       multiline: false
+
+app:
+  file-storage:
+    root-path: ${user.home}/.jpa-file-storage
 
 logging:
   file:

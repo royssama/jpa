@@ -28,6 +28,22 @@ public class GlobalExceptionHandler {
                 .body(responseFactory.failure("NOT_FOUND", "error.not_found", locale));
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<CommonApiResponse<Void>> handleBadRequest(IllegalArgumentException e) {
+        String msg = e.getMessage() != null ? e.getMessage() : "요청이 올바르지 않습니다.";
+        return ResponseEntity.badRequest()
+                .body(CommonApiResponse.createFailure("BAD_REQUEST", msg));
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<CommonApiResponse<Void>> handleIllegalState(IllegalStateException e, Locale locale) {
+        Locale l = locale == null ? Locale.getDefault() : locale;
+        String msg = e.getMessage() != null ? e.getMessage()
+                : responseFactory.failure("INTERNAL_SERVER_ERROR", "error.internal", l).message();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(CommonApiResponse.createFailure("FILE_STORAGE_ERROR", msg));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<CommonApiResponse<Void>> handleValidation(MethodArgumentNotValidException e, Locale locale) {
         String message = e.getBindingResult()
