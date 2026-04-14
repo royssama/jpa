@@ -1,20 +1,19 @@
-# --- SQLite: DBeaver Chinook 샘플 DB (Customer 등 테이블·데이터 포함) ---
-# 경로는 본인 PC 기준. 다른 머신이면 spring.datasource.url 만 맞추면 됨.
-#
-# JPA·MyBatis는 동시에 켜져 있음. 조회/변경 경로는 CustomerServiceImpl 메서드에서 직접 선택.
-
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 55MB
+  messages:
+    basename: messages/messages
+    encoding: UTF-8
   datasource:
     url: jdbc:sqlite:C:/Users/phy/AppData/Roaming/DBeaverData/workspace6/.metadata/sample-database-sqlite-1/Chinook.db
     driver-class-name: org.sqlite.JDBC
-    # username / password — SQLite 단일 파일은 보통 불필요
   jpa:
     hibernate:
       ddl-auto: update
-      # Chinook PascalCase 컬럼·테이블명과 매핑
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    # true면 콘솔에 "Hibernate: ... ?" 만 나오고 바인딩 값은 안 붙음 → 로깅으로 SQL+파라미터 통일
     show-sql: false
     properties:
       hibernate:
@@ -30,15 +29,20 @@ mybatis:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+    disable-swagger-default-url: true
 
-# DataSource 프록시: 기본 SLF4J 리스너는 끄고, InlinedSqlLoggingConfig 가 ? 를 값으로 치환해 jdbc.sql 로 출력
 decorator:
   datasource:
     datasource-proxy:
       logging: slf4j
       query:
-        enable-logging: false
+        enable-logging: false  #enable-logging: true
+        # log-level: info
       multiline: false
+
+app:
+  file-storage:
+    root-path: ${user.home}/.jpa-file-storage
 
 logging:
   file:
@@ -48,3 +52,4 @@ logging:
     org.hibernate.orm.jdbc.bind: warn
     org.hibernate.type.descriptor.sql: warn
     jdbc.sql: info
+    #net.ttddyy.dsproxy.listener.logging.SLF4JQueryLoggingListener: info
