@@ -29,13 +29,14 @@ mybatis:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+    disable-swagger-default-url: true
 
 decorator:
   datasource:
     datasource-proxy:
       logging: slf4j
       query:
-         enable-logging: false  #enable-logging: true
+        enable-logging: false  #enable-logging: true
         # log-level: info
       multiline: false
 

@@ -17,7 +17,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Spring Boot · JPA · QueryDSL · MyBatis")
-                        .description("HTTP Basic: 사용자 `user`, 비밀번호 `password`")
+                        .description("tb_com_user(user_id/password) 기반 로그인 후 Swagger Authorize(Basic) 사용")
                         .version("1.0.0"))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .components(new Components()
