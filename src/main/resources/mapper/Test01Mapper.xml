@@ -3,15 +3,15 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.backend.repository.mybatis.Test01Mapper">
 
-    <select id="findByRequest" parameterType="map" resultType="map">
+    <select id="findByRequest" resultType="map">
         SELECT *
         FROM test01
         WHERE 1 = 1
-        <if test="AUTH_ID != null and AUTH_ID != ''">
-            AND AUTH_ID IN (#{AUTH_ID})
+        <if test="req.AUTH_ID != null and req.AUTH_ID != ''">
+            AND AUTH_ID IN (#{req.AUTH_ID})
         </if>
-        <if test="USER_ID != null and USER_ID != ''">
-            AND USER_ID = #{USER_ID}
+        <if test="req.USER_ID != null and req.USER_ID != ''">
+            AND USER_ID = #{req.USER_ID}
         </if>
     </select>
 </mapper>
