@@ -7,7 +7,7 @@
         SELECT *
         FROM test01
         WHERE 1 = 1
-        <if test="req.AUTH_ID != null and req.AUTH_ID != ''">
+        <if test="req.AUTH_ID != null">
             AND AUTH_ID IN (#{req.AUTH_ID})
         </if>
         <if test="req.USER_ID != null and req.USER_ID != ''">
